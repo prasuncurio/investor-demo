@@ -36,7 +36,7 @@ export default function Phase2Risk() {
 
       {/* SVG Visualization */}
       <div className="w-full max-w-xl">
-        <svg viewBox="0 0 550 350" className="w-full h-full">
+        <svg viewBox="0 0 600 350" className="w-full h-full">
           {/* Central point */}
           <motion.circle
             cx={centralPoint.x}
@@ -101,16 +101,51 @@ export default function Phase2Risk() {
                   x={scenario.label.position.x}
                   y={scenario.label.position.y}
                   fontSize="11"
-                  fill={scenario.color}
+                  fill="#ffffffff"
                   textAnchor="middle"
                   dominantBaseline="middle"
                 >
                   {scenario.label.text}
-                  {scenario.recommended && (
-                    <tspan dx="3">⭐</tspan>
-                  )}
                 </text>
               </motion.g>
+
+              {/* Recommended star indicator */}
+              {scenario.recommended && (
+                <motion.g
+                  role="img"
+                  aria-label="Recommended option"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    delay: (scenario.delay + 2000) / 1000,
+                    type: 'spring',
+                    stiffness: 400,
+                    damping: 12
+                  }}
+                >
+                  {/* Star background circle for better visibility */}
+                  <circle
+                    cx={scenario.label.position.x + 65}
+                    cy={scenario.label.position.y}
+                    r="10"
+                    fill="rgba(255, 200, 100, 0.15)"
+                    stroke="#FFA500"
+                    strokeWidth="1"
+                  />
+                  {/* Star emoji */}
+                  <text
+                    x={scenario.label.position.x + 65}
+                    y={scenario.label.position.y}
+                    fontSize="14"
+                    fill="#FFD700"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    style={{ userSelect: 'none' }}
+                  >
+                    ⭐
+                  </text>
+                </motion.g>
+              )}
             </g>
           ))}
         </svg>

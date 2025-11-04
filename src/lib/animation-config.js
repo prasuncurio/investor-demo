@@ -4,12 +4,12 @@
 
 export const ANIMATION_CONFIG = {
   // Total duration - INCREASED for better visibility
-  TOTAL_DURATION: 12000, // 12 seconds (was 5)
+  TOTAL_DURATION: 13500, // 13.5 seconds (was 5)
 
   // Phase durations - INCREASED significantly
   PHASE_1_DURATION: 3000, // 3 seconds (was 1)
   PHASE_2_DURATION: 4500, // 4.5 seconds (was 2)
-  PHASE_3_DURATION: 4500, // 4.5 seconds (was 2)
+  PHASE_3_DURATION: 6000, // 6 seconds (was 2)
 
   // Transition timing
   PHASE_TRANSITION_DURATION: 400,
@@ -31,7 +31,7 @@ export const ANIMATION_CONFIG = {
   SCENARIO_COUNT_INTERVAL: 600, // 0.6 seconds (was 200ms)
 
   // Phase 3 specific - SLOWED DOWN
-  COUNTER_ANIMATION_DURATION: 2500, // 2.5 seconds (was 1200ms)
+  COUNTER_ANIMATION_DURATION: 4000, // 4 seconds (was 1200ms)
   CONFIDENCE_STEP_1_DELAY: 1500, // 1.5 seconds (was 800ms)
   CONFIDENCE_STEP_2_DELAY: 2500, // 2.5 seconds (was 1300ms)
   CONFIDENCE_STEP_3_DELAY: 3500, // 3.5 seconds (was 1800ms)

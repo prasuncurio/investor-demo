@@ -2,10 +2,11 @@ import { useState } from 'react';
 import PatientOverview from '@/components/PatientOverview';
 import QueryInterface from '@/components/QueryInterface';
 import AnalysisAnimation from '@/components/AnalysisAnimation';
+import InterventionComparison from '@/components/InterventionComparison';
 import patientData from '@/data/sarah-patient.json';
 
 function App() {
-  const [currentView, setCurrentView] = useState('overview'); // 'overview' | 'query' | 'analysis' | 'results'
+  const [currentView, setCurrentView] = useState('overview'); // 'overview' | 'query' | 'analysis' | 'comparison'
   const [selectedQuery, setSelectedQuery] = useState('');
 
   const handleStartQuery = () => {
@@ -18,7 +19,12 @@ function App() {
   };
 
   const handleAnalysisComplete = () => {
-    setCurrentView('results');
+    setCurrentView('comparison');
+  };
+
+  const handleNewQueryFromComparison = (newQuery) => {
+    setSelectedQuery(newQuery);
+    setCurrentView('analysis');
   };
 
   const handleBackToOverview = () => {
@@ -48,26 +54,14 @@ function App() {
         />
       )}
 
-      {currentView === 'results' && (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center max-w-md">
-            <h2 className="text-2xl font-bold mb-4">
-              Analysis Complete
-            </h2>
-            <p className="text-muted-foreground mb-2">
-              Query: &ldquo;{selectedQuery}&rdquo;
-            </p>
-            <p className="text-sm text-muted-foreground mb-8">
-              Results screen (InterventionComparison) will be implemented in the next phase.
-            </p>
-            <button
-              onClick={handleBackToOverview}
-              className="px-6 py-2 border rounded-lg hover:bg-accent transition-colors"
-            >
-              Back to Overview
-            </button>
-          </div>
-        </div>
+      {currentView === 'comparison' && (
+        <InterventionComparison
+          query={selectedQuery}
+          patientName={patientData.name}
+          patientData={patientData}
+          onBackToOverview={handleBackToOverview}
+          onNewQuery={handleNewQueryFromComparison}
+        />
       )}
     </div>
   );

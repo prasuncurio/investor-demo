@@ -55,50 +55,50 @@ export const riskModelingData = {
     {
       id: 'no-action',
       name: 'No Intervention',
-      path: 'M 50 200 Q 200 100, 500 80',
-      color: 'hsl(var(--muted-foreground))',
+      path: 'M 50 200 Q 250 100, 455 80',
+      color: '#888888',
       opacity: 0.5,
       strokeDasharray: '5,5',
       strokeWidth: 3,
       delay: 0,
       label: {
         text: 'No Action',
-        position: { x: 500, y: 70 }
+        position: { x: 500, y: 80 }
       }
     },
     {
       id: 'statin',
       name: 'Statin 20mg',
-      path: 'M 50 200 Q 200 160, 500 140',
-      color: 'hsl(var(--chart-2))',
+      path: 'M 50 200 Q 250 140, 455 150',
+      color: '#3b82f6',
       opacity: 1,
       strokeWidth: 3,
       delay: 200,
       glow: true,
       label: {
         text: 'Statin',
-        position: { x: 500, y: 130 }
+        position: { x: 500, y: 150 }
       }
     },
     {
       id: 'hrt',
       name: 'HRT 0.5mg',
-      path: 'M 50 200 Q 200 240, 500 220',
-      color: 'hsl(var(--chart-1))',
+      path: 'M 50 200 Q 250 210, 455 220',
+      color: '#f59e0b',
       opacity: 1,
       strokeWidth: 3,
       delay: 400,
       glow: true,
       label: {
         text: 'HRT',
-        position: { x: 500, y: 210 }
+        position: { x: 500, y: 220 }
       }
     },
     {
       id: 'combined',
       name: 'HRT + Lifestyle',
-      path: 'M 50 200 Q 200 280, 500 300',
-      color: 'hsl(var(--chart-3))',
+      path: 'M 50 200 Q 250 260, 455 290',
+      color: '#10b981',
       opacity: 1,
       strokeWidth: 4,
       delay: 600,
@@ -133,19 +133,19 @@ export const evidenceSynthesisData = {
     steps: [
       {
         value: 78,
-        timestamp: 800,
+        timestamp: 1500,
         label: 'Initial pattern analysis',
         description: 'Baseline cohort matching'
       },
       {
         value: 82,
-        timestamp: 1300,
+        timestamp: 2500,
         label: 'Risk model validation',
         description: 'Intervention outcome prediction'
       },
       {
         value: 87,
-        timestamp: 1800,
+        timestamp: 3500,
         label: 'Guideline cross-reference',
         description: 'Clinical evidence validation'
       }

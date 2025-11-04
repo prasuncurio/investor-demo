@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
-import { LineChart, Line, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { patternRecognitionData } from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 
@@ -22,23 +22,28 @@ export default function Phase1Pattern() {
           <p className="text-xs text-muted-foreground mb-2 text-center">LDL Cholesterol</p>
           <ResponsiveContainer width="100%" height={120}>
             <LineChart data={ldlTrend}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="oklch(0.922 0 0)"
+              />
               <XAxis
                 dataKey="month"
-                tick={{ fontSize: 10 }}
-                stroke="hsl(var(--muted-foreground))"
+                tick={{ fill: 'oklch(0.556 0 0)', fontSize: 10 }}
+                stroke="oklch(0.556 0 0)"
               />
               <YAxis
                 domain={[130, 190]}
-                tick={{ fontSize: 10 }}
-                stroke="hsl(var(--muted-foreground))"
+                tick={{ fill: 'oklch(0.556 0 0)', fontSize: 10 }}
+                stroke="oklch(0.556 0 0)"
               />
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="hsl(var(--chart-5))"
+                stroke="oklch(0.646 0.222 41.116)"
                 strokeWidth={3}
-                animationDuration={ANIMATION_CONFIG.CHART_ANIMATION_DURATION}
-                dot={{ fill: 'hsl(var(--chart-5))', r: 4 }}
+                dot={{ fill: 'oklch(0.646 0.222 41.116)', r: 4 }}
+                activeDot={{ r: 6 }}
+                isAnimationActive={false}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -59,23 +64,28 @@ export default function Phase1Pattern() {
           <p className="text-xs text-muted-foreground mb-2 text-center">Estradiol</p>
           <ResponsiveContainer width="100%" height={120}>
             <LineChart data={estradiolTrend}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="oklch(0.922 0 0)"
+              />
               <XAxis
                 dataKey="month"
-                tick={{ fontSize: 10 }}
-                stroke="hsl(var(--muted-foreground))"
+                tick={{ fill: 'oklch(0.556 0 0)', fontSize: 10 }}
+                stroke="oklch(0.556 0 0)"
               />
               <YAxis
                 domain={[0, 50]}
-                tick={{ fontSize: 10 }}
-                stroke="hsl(var(--muted-foreground))"
+                tick={{ fill: 'oklch(0.556 0 0)', fontSize: 10 }}
+                stroke="oklch(0.556 0 0)"
               />
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="hsl(var(--chart-1))"
+                stroke="oklch(0.6 0.118 184.704)"
                 strokeWidth={3}
-                animationDuration={ANIMATION_CONFIG.CHART_ANIMATION_DURATION}
-                dot={{ fill: 'hsl(var(--chart-1))', r: 4 }}
+                dot={{ fill: 'oklch(0.6 0.118 184.704)', r: 4 }}
+                activeDot={{ r: 6 }}
+                isAnimationActive={false}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -104,7 +114,7 @@ export default function Phase1Pattern() {
         }}
         className="absolute top-4 right-4"
       >
-        <Sparkles className="w-5 h-5" style={{ color: 'hsl(var(--chart-1))' }} />
+        <Sparkles className="w-5 h-5" style={{ color: '#f59e0b' }} />
       </motion.div>
     </motion.div>
   );
