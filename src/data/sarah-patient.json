@@ -1,0 +1,80 @@
+{
+  "id": "PT-2024-001",
+  "name": "Sarah M.",
+  "age": 48,
+  "status": "perimenopausal",
+  "riskLevel": "elevated",
+  "lastVisit": "2024-01-15",
+  "demographics": {
+    "height": "165 cm",
+    "weight": "68 kg",
+    "bmi": 25.0,
+    "ethnicity": "Caucasian"
+  },
+  "medicalHistory": {
+    "conditions": ["Hypertension (controlled)", "Family history of CVD"],
+    "medications": ["Lisinopril 10mg daily"],
+    "allergies": ["None reported"]
+  },
+  "metrics": {
+    "ldl": {
+      "current": 165,
+      "baseline": 120,
+      "unit": "mg/dL",
+      "trend": "rising",
+      "changePercent": 37.5,
+      "history": [
+        { "date": "2022-01", "value": 118 },
+        { "date": "2022-07", "value": 122 },
+        { "date": "2023-01", "value": 135 },
+        { "date": "2023-07", "value": 148 },
+        { "date": "2024-01", "value": 165 }
+      ]
+    },
+    "estradiol": {
+      "current": 45,
+      "baseline": 180,
+      "unit": "pg/mL",
+      "trend": "declining",
+      "changePercent": -75.0,
+      "history": [
+        { "date": "2022-01", "value": 185 },
+        { "date": "2022-07", "value": 170 },
+        { "date": "2023-01", "value": 125 },
+        { "date": "2023-07", "value": 78 },
+        { "date": "2024-01", "value": 45 }
+      ]
+    },
+    "bloodPressure": {
+      "systolic": 128,
+      "diastolic": 82,
+      "unit": "mmHg"
+    },
+    "glucose": {
+      "value": 98,
+      "unit": "mg/dL"
+    },
+    "hdl": {
+      "value": 52,
+      "unit": "mg/dL"
+    },
+    "triglycerides": {
+      "value": 145,
+      "unit": "mg/dL"
+    }
+  },
+  "symptoms": {
+    "primary": ["Hot flashes (moderate)", "Sleep disturbances", "Mood changes"],
+    "secondary": ["Joint stiffness", "Fatigue"]
+  },
+  "cardiovascularRisk": {
+    "score": 12.5,
+    "category": "Moderate",
+    "factors": [
+      "Elevated LDL cholesterol",
+      "Family history of CVD",
+      "Perimenopausal transition",
+      "Hypertension (controlled)"
+    ]
+  }
+}
