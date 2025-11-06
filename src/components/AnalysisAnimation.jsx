@@ -5,13 +5,18 @@ import { Card } from '@/components/ui/card';
 import Phase1Pattern from '@/components/analysis/Phase1Pattern';
 import Phase2Risk from '@/components/analysis/Phase2Risk';
 import Phase3Evidence from '@/components/analysis/Phase3Evidence';
+import Phase1PatternMechanism from '@/components/animation/Phase1PatternMechanism';
+import Phase2PathwayMechanism from '@/components/animation/Phase2PathwayMechanism';
+import Phase3CohortMechanism from '@/components/animation/Phase3CohortMechanism';
 import ProgressBar from '@/components/analysis/ProgressBar';
 import StatusMessage from '@/components/analysis/StatusMessage';
 import {
   statusMessagesData,
-  breastCancerStatusMessagesData
+  breastCancerStatusMessagesData,
+  mechanismStatusMessagesData
 } from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
+import { QUERY_TYPES } from '@/lib/query-classifier';
 
 // Hook to detect reduced motion preference
 function usePrefersReducedMotion() {
@@ -32,6 +37,7 @@ function usePrefersReducedMotion() {
 
 export default function AnalysisAnimation({
   query,
+  queryType,
   onComplete,
   patientName,
   duration = ANIMATION_CONFIG.TOTAL_DURATION,
@@ -40,8 +46,10 @@ export default function AnalysisAnimation({
   const prefersReducedMotion = usePrefersReducedMotion();
   const actualDuration = prefersReducedMotion ? ANIMATION_CONFIG.REDUCED_MOTION_DURATION : duration;
 
-  // Select status messages based on use case
-  const statusMessages = useCase === 'breast-cancer'
+  // Select status messages based on query type and use case
+  const statusMessages = queryType === QUERY_TYPES.MECHANISM
+    ? mechanismStatusMessagesData
+    : useCase === 'breast-cancer'
     ? breastCancerStatusMessagesData
     : statusMessagesData;
 
@@ -177,9 +185,19 @@ export default function AnalysisAnimation({
           <Card className="min-h-[300px] md:min-h-[350px] lg:min-h-[400px] p-6 md:p-8 lg:p-12 relative">
             <div aria-label={getPhaseDescription(currentPhase)}>
               <AnimatePresence mode="wait">
-                {currentPhase === 1 && <Phase1Pattern key="phase1" useCase={useCase} />}
-                {currentPhase === 2 && <Phase2Risk key="phase2" useCase={useCase} />}
-                {currentPhase === 3 && <Phase3Evidence key="phase3" useCase={useCase} />}
+                {queryType === QUERY_TYPES.MECHANISM ? (
+                  <>
+                    {currentPhase === 1 && <Phase1PatternMechanism key="phase1-mechanism" />}
+                    {currentPhase === 2 && <Phase2PathwayMechanism key="phase2-mechanism" />}
+                    {currentPhase === 3 && <Phase3CohortMechanism key="phase3-mechanism" />}
+                  </>
+                ) : (
+                  <>
+                    {currentPhase === 1 && <Phase1Pattern key="phase1" useCase={useCase} />}
+                    {currentPhase === 2 && <Phase2Risk key="phase2" useCase={useCase} />}
+                    {currentPhase === 3 && <Phase3Evidence key="phase3" useCase={useCase} />}
+                  </>
+                )}
               </AnimatePresence>
             </div>
           </Card>

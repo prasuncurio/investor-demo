@@ -431,3 +431,34 @@ export const breastCancerStatusMessagesData = [
     description: 'Validating safety and efficacy in similar patients'
   }
 ];
+
+// ============================================
+// MECHANISM QUERY TYPE DATA
+// ============================================
+
+export const mechanismStatusMessagesData = [
+  {
+    id: 1,
+    phase: 1,
+    text: 'Pattern Recognition',
+    completedText: 'Pattern Recognition Complete',
+    activeText: 'Detecting temporal correlation patterns...',
+    description: 'Analyzing inverse relationship between biomarkers'
+  },
+  {
+    id: 2,
+    phase: 2,
+    text: 'Pathway Analysis',
+    completedText: 'Pathway Analysis Complete',
+    activeText: 'Tracing biological mechanism...',
+    description: 'Mapping hormonal pathway to cholesterol regulation'
+  },
+  {
+    id: 3,
+    phase: 3,
+    text: 'Cohort Validation',
+    completedText: 'Cohort Validation Complete',
+    activeText: 'Validating against 2,347 similar cases...',
+    description: 'Verifying pattern consistency across cohort'
+  }
+];
