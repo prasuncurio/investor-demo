@@ -462,3 +462,28 @@ export const mechanismStatusMessagesData = [
     description: 'Verifying pattern consistency across cohort'
   }
 ];
+
+// ============================================
+// BINARY DECISION QUERY TYPE DATA
+// ============================================
+
+export const binaryDecisionStatusMessagesData = [
+  {
+    id: 1,
+    phase: 1,
+    icon: 'scale',
+    text: 'Risk-Benefit Analysis',
+    completedText: 'Risk-Benefit Complete',
+    activeText: 'Modeling statin vs alternatives...',
+    description: 'Weighing efficacy against root cause treatment'
+  },
+  {
+    id: 2,
+    phase: 2,
+    icon: 'clipboard-check',
+    text: 'Guidelines Review',
+    completedText: 'Guidelines Review Complete',
+    activeText: 'Checking contraindications... Reviewing NAMS recommendations...',
+    description: 'Validating against clinical guidelines'
+  }
+];

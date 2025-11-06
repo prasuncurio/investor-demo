@@ -8,12 +8,15 @@ import Phase3Evidence from '@/components/analysis/Phase3Evidence';
 import Phase1PatternMechanism from '@/components/animation/Phase1PatternMechanism';
 import Phase2PathwayMechanism from '@/components/animation/Phase2PathwayMechanism';
 import Phase3CohortMechanism from '@/components/animation/Phase3CohortMechanism';
+import Phase1RiskBenefitBinary from '@/components/animation/Phase1RiskBenefitBinary';
+import Phase2GuidelinesCheck from '@/components/animation/Phase2GuidelinesCheck';
 import ProgressBar from '@/components/analysis/ProgressBar';
 import StatusMessage from '@/components/analysis/StatusMessage';
 import {
   statusMessagesData,
   breastCancerStatusMessagesData,
-  mechanismStatusMessagesData
+  mechanismStatusMessagesData,
+  binaryDecisionStatusMessagesData
 } from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 import { QUERY_TYPES } from '@/lib/query-classifier';
@@ -49,6 +52,8 @@ export default function AnalysisAnimation({
   // Select status messages based on query type and use case
   const statusMessages = queryType === QUERY_TYPES.MECHANISM
     ? mechanismStatusMessagesData
+    : queryType === QUERY_TYPES.BINARY_DECISION
+    ? binaryDecisionStatusMessagesData
     : useCase === 'breast-cancer'
     ? breastCancerStatusMessagesData
     : statusMessagesData;
@@ -61,7 +66,25 @@ export default function AnalysisAnimation({
 
   // Phase transitions
   useEffect(() => {
-    const timers = [
+    // Binary decision has only 2 phases, so we adjust timing accordingly
+    const isBinaryDecision = queryType === QUERY_TYPES.BINARY_DECISION;
+    const phase1Duration = 1500; // 1.5 seconds for binary decision
+    const phase2Duration = 1500; // 1.5 seconds for binary decision
+    const binaryTotalDuration = 3000; // 3 seconds total
+
+    const timers = isBinaryDecision ? [
+      setTimeout(() => {
+        setCurrentPhase(2);
+        setCompletedPhases([1]);
+      }, phase1Duration),
+
+      setTimeout(() => {
+        setCompletedPhases([1, 2]);
+        setTimeout(() => {
+          onComplete();
+        }, 300);
+      }, binaryTotalDuration)
+    ] : [
       setTimeout(() => {
         setCurrentPhase(2);
         setCompletedPhases([1]);
@@ -81,7 +104,7 @@ export default function AnalysisAnimation({
     ];
 
     return () => timers.forEach(clearTimeout);
-  }, [actualDuration, onComplete]);
+  }, [actualDuration, onComplete, queryType]);
 
   // Progress bar animation
   useEffect(() => {
@@ -190,6 +213,11 @@ export default function AnalysisAnimation({
                     {currentPhase === 1 && <Phase1PatternMechanism key="phase1-mechanism" />}
                     {currentPhase === 2 && <Phase2PathwayMechanism key="phase2-mechanism" />}
                     {currentPhase === 3 && <Phase3CohortMechanism key="phase3-mechanism" />}
+                  </>
+                ) : queryType === QUERY_TYPES.BINARY_DECISION ? (
+                  <>
+                    {currentPhase === 1 && <Phase1RiskBenefitBinary key="phase1-binary" />}
+                    {currentPhase === 2 && <Phase2GuidelinesCheck key="phase2-binary" />}
                   </>
                 ) : (
                   <>

@@ -6,6 +6,7 @@ import QueryInterface from '@/components/QueryInterface';
 import AnalysisAnimation from '@/components/AnalysisAnimation';
 import InterventionComparison from '@/components/InterventionComparison';
 import MechanismExplanation from '@/components/results/MechanismExplanation';
+import BinaryDecision from '@/components/results/BinaryDecision';
 import patientData from '@/data/sarah-patient.json';
 import { classifyQuery, QUERY_TYPES } from '@/lib/query-classifier';
 
@@ -126,9 +127,8 @@ export default function CardiovascularDemo() {
 
             {/* Query 3: Binary Decision - "Should I prescribe a statin?" */}
             {queryType === QUERY_TYPES.BINARY_DECISION && (
-              <InterventionComparison
+              <BinaryDecision
                 query={selectedQuery}
-                queryType={queryType}
                 patientName={patientData.name}
                 patientData={patientData}
                 onBackToOverview={handleBackToOverview}
