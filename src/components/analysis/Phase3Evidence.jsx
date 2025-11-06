@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CircleCheckBig } from 'lucide-react';
-import { evidenceSynthesisData } from '@/lib/animation-data';
+import {
+  evidenceSynthesisData,
+  breastCancerEvidenceSynthesisData
+} from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 
-export default function Phase3Evidence() {
-  const { cohort, confidence } = evidenceSynthesisData;
+export default function Phase3Evidence({ useCase = 'cardiovascular' }) {
+  // Select data based on use case
+  const data = useCase === 'breast-cancer'
+    ? breastCancerEvidenceSynthesisData
+    : evidenceSynthesisData;
+
+  const { cohort, confidence } = data;
   const [count, setCount] = useState(0);
   const [currentConfidence, setCurrentConfidence] = useState(0);
   const [showCompletion, setShowCompletion] = useState(false);

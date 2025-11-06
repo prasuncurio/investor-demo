@@ -55,7 +55,7 @@ export function getTrendIcon(trend) {
 
 /**
  * Get trend color class based on metric type and trend
- * @param {string} metricType - Type of metric (ldl, estradiol, etc.)
+ * @param {string} metricType - Type of metric (ldl, estradiol, hotFlashes, symptomSeverity, etc.)
  * @param {string} trend - Trend direction
  * @returns {string} Tailwind color class
  */
@@ -69,6 +69,10 @@ export function getTrendColor(metricType, trend) {
     return trend === 'declining'
       ? 'text-muted-foreground'
       : 'text-green-600';
+  }
+  // For hot flashes and symptom severity, rising is bad (destructive)
+  if (metricType === 'hotFlashes' || metricType === 'symptomSeverity') {
+    return trend === 'rising' ? 'text-destructive' : 'text-green-600';
   }
   // Default
   return 'text-muted-foreground';
@@ -120,10 +124,10 @@ export function getChartDomain(data, dataKey = 'value') {
  * @returns {object|null} Alert configuration or null
  */
 export function getMetricAlert(patient) {
-  const { ldl, estradiol } = patient.metrics;
+  const { ldl, estradiol, hotFlashes, symptomSeverity } = patient.metrics;
 
-  // Check for concerning LDL elevation during perimenopause
-  if (ldl.current > 160 && Math.abs(ldl.changePercent) > 30) {
+  // Cardiovascular patient alerts
+  if (ldl && ldl.current > 160 && Math.abs(ldl.changePercent) > 30) {
     return {
       type: 'warning',
       title: 'Significant LDL Elevation Detected',
@@ -131,12 +135,20 @@ export function getMetricAlert(patient) {
     };
   }
 
-  // Check for rapid estradiol decline
-  if (estradiol.current < 50 && Math.abs(estradiol.changePercent) > 70) {
+  if (estradiol && estradiol.current < 50 && Math.abs(estradiol.changePercent) > 70) {
     return {
       type: 'info',
       title: 'Significant Hormonal Change',
       message: `Estradiol levels have declined ${Math.abs(estradiol.changePercent).toFixed(1)}% from baseline, indicating active perimenopausal transition.`,
+    };
+  }
+
+  // Breast cancer patient alerts
+  if (hotFlashes && hotFlashes.current > 20) {
+    return {
+      type: 'warning',
+      title: 'Severe Vasomotor Symptoms',
+      message: `Patient experiencing ${hotFlashes.current} hot flashes per day with severity of ${symptomSeverity?.current}/10. Significant impact on quality of life.`,
     };
   }
 

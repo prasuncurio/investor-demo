@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { clinicalStudies } from '@/lib/evidence-data';
+import { breastCancerClinicalStudies } from '@/lib/breast-cancer-evidence-data';
 
 function StudyCard({ study }) {
   const [isExpanded, setIsExpanded] = useState(false);

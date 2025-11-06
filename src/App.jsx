@@ -1,69 +1,25 @@
-import { useState } from 'react';
-import PatientOverview from '@/components/PatientOverview';
-import QueryInterface from '@/components/QueryInterface';
-import AnalysisAnimation from '@/components/AnalysisAnimation';
-import InterventionComparison from '@/components/InterventionComparison';
-import patientData from '@/data/sarah-patient.json';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import UseCaseSelector from '@/components/UseCaseSelector';
+import CardiovascularDemo from '@/components/CardiovascularDemo';
+import BreastCancerDemo from '@/components/BreastCancerDemo';
 
 function App() {
-  const [currentView, setCurrentView] = useState('overview'); // 'overview' | 'query' | 'analysis' | 'comparison'
-  const [selectedQuery, setSelectedQuery] = useState('');
-
-  const handleStartQuery = () => {
-    setCurrentView('query');
-  };
-
-  const handleQuerySubmit = (query) => {
-    setSelectedQuery(query);
-    setCurrentView('analysis');
-  };
-
-  const handleAnalysisComplete = () => {
-    setCurrentView('comparison');
-  };
-
-  const handleNewQueryFromComparison = (newQuery) => {
-    setSelectedQuery(newQuery);
-    setCurrentView('analysis');
-  };
-
-  const handleBackToOverview = () => {
-    setCurrentView('overview');
-    setSelectedQuery('');
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      {currentView === 'overview' && (
-        <PatientOverview onStartQuery={handleStartQuery} />
-      )}
+    <Router basename="/investor-demo">
+      <Routes>
+        {/* Landing page */}
+        <Route path="/" element={<UseCaseSelector />} />
 
-      {currentView === 'query' && (
-        <QueryInterface
-          onQuerySubmit={handleQuerySubmit}
-          onBack={handleBackToOverview}
-          patientName={patientData.name}
-        />
-      )}
+        {/* Cardiovascular demo */}
+        <Route path="/demo/cardiovascular" element={<CardiovascularDemo />} />
 
-      {currentView === 'analysis' && (
-        <AnalysisAnimation
-          query={selectedQuery}
-          onComplete={handleAnalysisComplete}
-          patientName={patientData.name}
-        />
-      )}
+        {/* Breast cancer demo */}
+        <Route path="/demo/breast-cancer" element={<BreastCancerDemo />} />
 
-      {currentView === 'comparison' && (
-        <InterventionComparison
-          query={selectedQuery}
-          patientName={patientData.name}
-          patientData={patientData}
-          onBackToOverview={handleBackToOverview}
-          onNewQuery={handleNewQueryFromComparison}
-        />
-      )}
-    </div>
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }
 

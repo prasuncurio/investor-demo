@@ -7,7 +7,10 @@ import Phase2Risk from '@/components/analysis/Phase2Risk';
 import Phase3Evidence from '@/components/analysis/Phase3Evidence';
 import ProgressBar from '@/components/analysis/ProgressBar';
 import StatusMessage from '@/components/analysis/StatusMessage';
-import { statusMessagesData } from '@/lib/animation-data';
+import {
+  statusMessagesData,
+  breastCancerStatusMessagesData
+} from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 
 // Hook to detect reduced motion preference
@@ -31,10 +34,16 @@ export default function AnalysisAnimation({
   query,
   onComplete,
   patientName,
-  duration = ANIMATION_CONFIG.TOTAL_DURATION
+  duration = ANIMATION_CONFIG.TOTAL_DURATION,
+  useCase = 'cardiovascular'
 }) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const actualDuration = prefersReducedMotion ? ANIMATION_CONFIG.REDUCED_MOTION_DURATION : duration;
+
+  // Select status messages based on use case
+  const statusMessages = useCase === 'breast-cancer'
+    ? breastCancerStatusMessagesData
+    : statusMessagesData;
 
   // State
   const [currentPhase, setCurrentPhase] = useState(1);
@@ -168,16 +177,16 @@ export default function AnalysisAnimation({
           <Card className="min-h-[300px] md:min-h-[350px] lg:min-h-[400px] p-6 md:p-8 lg:p-12 relative">
             <div aria-label={getPhaseDescription(currentPhase)}>
               <AnimatePresence mode="wait">
-                {currentPhase === 1 && <Phase1Pattern key="phase1" />}
-                {currentPhase === 2 && <Phase2Risk key="phase2" />}
-                {currentPhase === 3 && <Phase3Evidence key="phase3" />}
+                {currentPhase === 1 && <Phase1Pattern key="phase1" useCase={useCase} />}
+                {currentPhase === 2 && <Phase2Risk key="phase2" useCase={useCase} />}
+                {currentPhase === 3 && <Phase3Evidence key="phase3" useCase={useCase} />}
               </AnimatePresence>
             </div>
           </Card>
 
           {/* Status Messages */}
           <div className="mt-6 md:mt-8 space-y-3" role="list" aria-label="Analysis steps">
-            {statusMessagesData.map(msg => (
+            {statusMessages.map(msg => (
               <StatusMessage
                 key={msg.id}
                 iconName={msg.icon}

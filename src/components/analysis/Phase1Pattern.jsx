@@ -1,11 +1,39 @@
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { patternRecognitionData } from '@/lib/animation-data';
+import {
+  patternRecognitionData,
+  breastCancerPatternRecognitionData
+} from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 
-export default function Phase1Pattern() {
-  const { ldlTrend, estradiolTrend } = patternRecognitionData;
+export default function Phase1Pattern({ useCase = 'cardiovascular' }) {
+  // Select data based on use case
+  const data = useCase === 'breast-cancer'
+    ? breastCancerPatternRecognitionData
+    : patternRecognitionData;
+
+  const {
+    hotFlashesTrend,
+    breastCancerRiskTrend,
+    ldlTrend,
+    estradiolTrend,
+    correlation
+  } = data;
+
+  // For breast cancer, use different metrics
+  const leftChartData = useCase === 'breast-cancer' ? hotFlashesTrend : ldlTrend;
+  const rightChartData = useCase === 'breast-cancer' ? breastCancerRiskTrend : estradiolTrend;
+
+  const leftChartLabel = useCase === 'breast-cancer' ? 'Hot Flashes/Day' : 'LDL Cholesterol';
+  const rightChartLabel = useCase === 'breast-cancer' ? '5-Yr BC Risk (%)' : 'Estradiol';
+
+  const leftChartDomain = useCase === 'breast-cancer' ? [0, 25] : [130, 190];
+  const rightChartDomain = useCase === 'breast-cancer' ? [0, 20] : [0, 50];
+
+  const correlationText = useCase === 'breast-cancer'
+    ? correlation.message || 'Safety constraint detected: High breast cancer risk limits HRT options'
+    : 'Correlation detected: Cholesterol ↑ as Estradiol ↓';
 
   return (
     <motion.div
@@ -17,11 +45,11 @@ export default function Phase1Pattern() {
     >
       {/* Charts Container */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full">
-        {/* LDL Chart */}
+        {/* Left Chart (LDL or Hot Flashes) */}
         <div className="w-full md:w-48">
-          <p className="text-xs text-muted-foreground mb-2 text-center">LDL Cholesterol</p>
+          <p className="text-xs text-muted-foreground mb-2 text-center">{leftChartLabel}</p>
           <ResponsiveContainer width="100%" height={120}>
-            <LineChart data={ldlTrend}>
+            <LineChart data={leftChartData}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke="oklch(0.922 0 0)"
@@ -32,7 +60,7 @@ export default function Phase1Pattern() {
                 stroke="oklch(0.556 0 0)"
               />
               <YAxis
-                domain={[130, 190]}
+                domain={leftChartDomain}
                 tick={{ fill: 'oklch(0.556 0 0)', fontSize: 10 }}
                 stroke="oklch(0.556 0 0)"
               />
@@ -56,14 +84,14 @@ export default function Phase1Pattern() {
           transition={{ delay: 0.5, duration: 0.3 }}
           className="text-2xl text-muted-foreground hidden md:block"
         >
-          ⟷
+          {useCase === 'breast-cancer' ? '⚠️' : '⟷'}
         </motion.div>
 
-        {/* Estradiol Chart */}
+        {/* Right Chart (Estradiol or BC Risk) */}
         <div className="w-full md:w-48">
-          <p className="text-xs text-muted-foreground mb-2 text-center">Estradiol</p>
+          <p className="text-xs text-muted-foreground mb-2 text-center">{rightChartLabel}</p>
           <ResponsiveContainer width="100%" height={120}>
-            <LineChart data={estradiolTrend}>
+            <LineChart data={rightChartData}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke="oklch(0.922 0 0)"
@@ -74,16 +102,16 @@ export default function Phase1Pattern() {
                 stroke="oklch(0.556 0 0)"
               />
               <YAxis
-                domain={[0, 50]}
+                domain={rightChartDomain}
                 tick={{ fill: 'oklch(0.556 0 0)', fontSize: 10 }}
                 stroke="oklch(0.556 0 0)"
               />
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="oklch(0.6 0.118 184.704)"
+                stroke={useCase === 'breast-cancer' ? '#ec4899' : 'oklch(0.6 0.118 184.704)'}
                 strokeWidth={3}
-                dot={{ fill: 'oklch(0.6 0.118 184.704)', r: 4 }}
+                dot={{ fill: useCase === 'breast-cancer' ? '#ec4899' : 'oklch(0.6 0.118 184.704)', r: 4 }}
                 activeDot={{ r: 6 }}
                 isAnimationActive={false}
               />
@@ -99,7 +127,7 @@ export default function Phase1Pattern() {
         transition={{ delay: 0.6, duration: 0.3 }}
         className="text-sm text-muted-foreground mt-6 text-center"
       >
-        Correlation detected: Cholesterol ↑ as Estradiol ↓
+        {correlationText}
       </motion.p>
 
       {/* Completion Indicator */}

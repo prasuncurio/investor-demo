@@ -198,3 +198,236 @@ export const statusMessagesData = [
     description: 'Validating recommendations against cohort data'
   }
 ];
+
+// ============================================
+// BREAST CANCER USE CASE DATA
+// ============================================
+
+export const breastCancerPatternRecognitionData = {
+  // Hot flashes trend (increasing severity)
+  hotFlashesTrend: [
+    {
+      month: -6,
+      value: 8,
+      label: '6mo ago',
+      date: '2024-05-01'
+    },
+    {
+      month: -3,
+      value: 14,
+      label: '3mo ago',
+      date: '2024-08-01'
+    },
+    {
+      month: 0,
+      value: 22,
+      label: 'Now',
+      date: '2024-11-01'
+    }
+  ],
+  // Breast cancer risk (static high level - the constraint)
+  breastCancerRiskTrend: [
+    {
+      month: -6,
+      value: 14.2,
+      label: '6mo ago',
+      date: '2024-05-01'
+    },
+    {
+      month: -3,
+      value: 14.2,
+      label: '3mo ago',
+      date: '2024-08-01'
+    },
+    {
+      month: 0,
+      value: 14.2,
+      label: 'Now',
+      date: '2024-11-01'
+    }
+  ],
+  correlation: {
+    message: 'Safety constraint detected: High breast cancer risk limits HRT options',
+    significance: 'high breast cancer risk limits treatment options'
+  }
+};
+
+export const breastCancerRiskModelingData = {
+  scenarios: [
+    {
+      id: 'no-action',
+      name: 'No Intervention',
+      path: 'M 50 200 Q 250 90, 455 80',
+      color: '#888888',
+      opacity: 0.5,
+      strokeDasharray: '5,5',
+      strokeWidth: 3,
+      delay: 0,
+      label: {
+        text: 'No Action',
+        position: { x: 500, y: 80 }
+      }
+    },
+    {
+      id: 'vaginal-estrogen',
+      name: 'Low-Dose Vaginal Estrogen',
+      path: 'M 50 200 Q 250 140, 455 130',
+      color: '#60a5fa',
+      opacity: 1,
+      strokeWidth: 3,
+      delay: 200,
+      glow: false,
+      label: {
+        text: 'Vaginal Estrogen',
+        position: { x: 500, y: 130 }
+      }
+    },
+    {
+      id: 'ssri',
+      name: 'SSRI (Paroxetine 7.5mg)',
+      path: 'M 50 200 Q 250 190, 455 180',
+      color: '#3b82f6',
+      opacity: 1,
+      strokeWidth: 3,
+      delay: 400,
+      glow: true,
+      label: {
+        text: 'SSRI',
+        position: { x: 500, y: 180 }
+      }
+    },
+    {
+      id: 'standard-hrt',
+      name: 'Standard HRT (Contraindicated)',
+      path: 'M 50 200 Q 250 235, 455 230',
+      color: '#ef4444',
+      opacity: 1,
+      strokeWidth: 3,
+      strokeDasharray: '10,5',
+      delay: 600,
+      glow: false,
+      contraindicated: true,
+      label: {
+        text: 'Standard HRT 🚫',
+        position: { x: 500, y: 230 }
+      }
+    },
+    {
+      id: 'fezolinetant',
+      name: 'Fezolinetant 45mg',
+      path: 'M 50 200 Q 250 275, 455 280',
+      color: '#a855f7',
+      opacity: 1,
+      strokeWidth: 4,
+      delay: 800,
+      glow: true,
+      recommended: false,
+      label: {
+        text: 'Fezolinetant',
+        position: { x: 500, y: 280 }
+      }
+    },
+    {
+      id: 'combined',
+      name: 'Combined Approach',
+      path: 'M 50 200 Q 250 320, 455 330',
+      color: '#10b981',
+      opacity: 1,
+      strokeWidth: 4,
+      delay: 1000,
+      glow: true,
+      recommended: true,
+      label: {
+        text: 'Fezo + CBT-I ⭐',
+        position: { x: 500, y: 330 }
+      }
+    }
+  ],
+  centralPoint: {
+    x: 50,
+    y: 200,
+    radius: 8,
+    label: 'Current State'
+  }
+};
+
+export const breastCancerEvidenceSynthesisData = {
+  cohort: {
+    totalCases: 4183,
+    demographics: {
+      ageRange: '45-52',
+      avgAge: 48,
+      stage: 'perimenopausal',
+      condition: 'high breast cancer risk, severe VMS'
+    },
+    dataSource: 'Multi-center registry (Mayo, MSK, Dana-Farber 2019-2024)'
+  },
+  confidence: {
+    steps: [
+      {
+        value: 78,
+        timestamp: 1500,
+        label: 'Safety assessment',
+        description: 'Baseline cancer risk evaluation'
+      },
+      {
+        value: 82,
+        timestamp: 2500,
+        label: 'Non-hormonal efficacy',
+        description: 'Symptom relief without oncologic risk'
+      },
+      {
+        value: 85,
+        timestamp: 3500,
+        label: 'Guideline cross-reference',
+        description: 'NAMS 2024 + oncology consensus'
+      }
+    ],
+    final: 85,
+    grade: 'High confidence'
+  },
+  guidelines: [
+    {
+      name: 'NAMS 2024',
+      relevance: 'high',
+      citation: 'Nonhormonal Management of VMS'
+    },
+    {
+      name: 'ASCO 2023',
+      relevance: 'high',
+      citation: 'VMS in High-Risk Women'
+    },
+    {
+      name: 'SKYLIGHT Trials 2024',
+      relevance: 'high',
+      citation: 'Fezolinetant Efficacy & Safety'
+    }
+  ]
+};
+
+export const breastCancerStatusMessagesData = [
+  {
+    id: 1,
+    phase: 1,
+    text: 'Safety Assessment',
+    completedText: 'Safety Assessment Complete',
+    activeText: 'Evaluating breast cancer risk constraint...',
+    description: 'Analyzing high breast cancer risk as treatment constraint'
+  },
+  {
+    id: 2,
+    phase: 2,
+    text: 'Treatment Pathways',
+    completedText: 'Treatment Pathways Complete',
+    activeText: 'Simulating non-hormonal interventions...',
+    description: 'Modeling six intervention scenarios prioritizing safety'
+  },
+  {
+    id: 3,
+    phase: 3,
+    text: 'Evidence Validation',
+    completedText: 'Evidence Validation Complete',
+    activeText: 'Cross-referencing 4,183 high-risk cases...',
+    description: 'Validating safety and efficacy in similar patients'
+  }
+];

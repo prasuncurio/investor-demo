@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-import { riskModelingData } from '@/lib/animation-data';
+import {
+  riskModelingData,
+  breastCancerRiskModelingData
+} from '@/lib/animation-data';
 
-export default function Phase2Risk() {
-  const { scenarios, centralPoint } = riskModelingData;
+export default function Phase2Risk({ useCase = 'cardiovascular' }) {
+  // Select data based on use case
+  const data = useCase === 'breast-cancer'
+    ? breastCancerRiskModelingData
+    : riskModelingData;
+
+  const { scenarios, centralPoint } = data;
+  const totalScenarios = scenarios.length;
   const [scenarioCount, setScenarioCount] = useState(1);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setScenarioCount(2), 200),
-      setTimeout(() => setScenarioCount(3), 400),
-      setTimeout(() => setScenarioCount(4), 600)
-    ];
+    // Generate timers dynamically based on number of scenarios
+    const timers = scenarios.slice(1).map((_, index) =>
+      setTimeout(() => setScenarioCount(index + 2), 200 * (index + 1))
+    );
 
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [scenarios]);
 
   return (
     <motion.div
@@ -31,7 +39,7 @@ export default function Phase2Risk() {
         animate={{ opacity: 1 }}
         className="text-sm text-foreground mb-4"
       >
-        Simulating scenario {scenarioCount} of 4...
+        Simulating scenario {scenarioCount} of {totalScenarios}...
       </motion.p>
 
       {/* SVG Visualization */}

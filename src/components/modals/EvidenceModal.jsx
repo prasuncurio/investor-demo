@@ -9,8 +9,12 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import EvidenceTabCohort from './EvidenceTabCohort';
 import EvidenceTabStudies from './EvidenceTabStudies';
 import EvidenceTabMechanism from './EvidenceTabMechanism';
+import EvidenceTabStudiesBreastCancer from './EvidenceTabStudiesBreastCancer';
+import EvidenceTabMechanismBreastCancer from './EvidenceTabMechanismBreastCancer';
 
-export default function EvidenceModal({ isOpen, onClose }) {
+export default function EvidenceModal({ isOpen, onClose, useCase = 'cardiovascular' }) {
+  const isBreastCancer = useCase === 'breast-cancer';
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[95vw] md:max-w-5xl max-h-[90vh] overflow-y-auto">
@@ -18,7 +22,7 @@ export default function EvidenceModal({ isOpen, onClose }) {
           <DialogTitle className="text-2xl">Supporting Evidence</DialogTitle>
         </DialogHeader>
 
-        <Tabs defaultValue="cohort" className="w-full">
+        <Tabs defaultValue="studies" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="cohort" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
@@ -38,15 +42,23 @@ export default function EvidenceModal({ isOpen, onClose }) {
           </TabsList>
 
           <TabsContent value="cohort" className="mt-6">
-            <EvidenceTabCohort />
+            <EvidenceTabCohort useCase={useCase} />
           </TabsContent>
 
           <TabsContent value="studies" className="mt-6">
-            <EvidenceTabStudies />
+            {isBreastCancer ? (
+              <EvidenceTabStudiesBreastCancer />
+            ) : (
+              <EvidenceTabStudies useCase={useCase} />
+            )}
           </TabsContent>
 
           <TabsContent value="mechanism" className="mt-6">
-            <EvidenceTabMechanism />
+            {isBreastCancer ? (
+              <EvidenceTabMechanismBreastCancer />
+            ) : (
+              <EvidenceTabMechanism useCase={useCase} />
+            )}
           </TabsContent>
         </Tabs>
       </DialogContent>

@@ -1,6 +1,7 @@
 import { Star } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { cohortMetrics, scenarioNames } from '@/lib/evidence-data';
+import { breastCancerCohortMetrics, breastCancerScenarioNames } from '@/lib/breast-cancer-evidence-data';
 
 // Color scheme mapping
 const colorSchemes = {
@@ -77,7 +78,9 @@ function MetricCard({ metric, metricKey }) {
   );
 }
 
-export default function EvidenceTabCohort() {
+export default function EvidenceTabCohort({ useCase = 'cardiovascular' }) {
+  const isBreastCancer = useCase === 'breast-cancer';
+  const metrics = isBreastCancer ? breastCancerCohortMetrics : cohortMetrics;
   const metricsOrder = ['ldlChange', 'vasomotorSymptoms', 'boneDensity', 'qualityOfLife', 'cvRisk', 'hdlChange'];
 
   return (
@@ -85,10 +88,10 @@ export default function EvidenceTabCohort() {
       {/* Header */}
       <div className="text-center mb-6">
         <h3 className="text-xl font-bold mb-2">
-          Based on {cohortMetrics.cohortSize.toLocaleString()} Similar Patients
+          Based on {metrics.cohortSize.toLocaleString()} Similar Patients
         </h3>
         <p className="text-sm text-muted-foreground">
-          {cohortMetrics.dataSource} • {cohortMetrics.successRate}% success rate
+          {metrics.dataSource} • {metrics.successRate}% success rate
         </p>
       </div>
 

@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowUp } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-const suggestedQueries = [
+// Default cardiovascular queries (fallback for backward compatibility)
+const defaultQueries = [
   {
     id: 'why-rising',
     text: 'Why is her cholesterol rising?',
@@ -43,8 +44,16 @@ const itemVariants = {
   visible: { opacity: 1, x: 0 },
 };
 
-export default function QueryInterface({ onQuerySubmit, onBack, patientName }) {
+export default function QueryInterface({
+  onQuerySubmit,
+  onBack,
+  patientName,
+  suggestedQueries,
+}) {
   const [inputValue, setInputValue] = useState('');
+
+  // Use provided queries or fall back to default cardiovascular queries
+  const queries = suggestedQueries || defaultQueries;
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -137,7 +146,7 @@ export default function QueryInterface({ onQuerySubmit, onBack, patientName }) {
           initial="hidden"
           animate="visible"
         >
-          {suggestedQueries.map((query) => (
+          {queries.map((query) => (
             <motion.div key={query.id} variants={itemVariants}>
               <Card
                 role="listitem"
