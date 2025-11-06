@@ -68,8 +68,8 @@ export const breastCancerScenarios = {
       },
       breastCancerRisk: {
         baseline: '14.2%',
-        month12: '14.3%',
-        changePercent: 0.7,
+        month12: '14.2%',
+        changePercent: 0,
         isStatic: true,
         note: 'Minimal systemic absorption'
       },
@@ -177,7 +177,7 @@ export const breastCancerScenarios = {
         baseline: 22,
         month12: 4,
         changePercent: -82,
-        note: 'Hypothetical if not contraindicated'
+        note: 'Expected efficacy (not prescribed due to contraindication)'
       },
       breastCancerRisk: {
         baseline: '14.2%',
@@ -185,41 +185,41 @@ export const breastCancerScenarios = {
         changePercent: 30,
         isStatic: false,
         warning: true,
-        note: 'Unacceptable risk increase'
+        note: 'Unacceptable risk increase - contraindication confirmed'
       },
       sleepQuality: {
         baseline: 3.2,
         month12: 8.2,
         changePercent: 156,
         scale: 10,
-        note: 'Hypothetical'
+        note: 'Expected efficacy (not prescribed due to contraindication)'
       },
       qualityOfLife: {
         baseline: 4.1,
         month12: 8.5,
         changePercent: 107,
         scale: 10,
-        note: 'Hypothetical'
+        note: 'Expected efficacy (not prescribed due to contraindication)'
       },
       mood: {
         baseline: 5.2,
         month12: 8.1,
         changePercent: 56,
         scale: 10,
-        note: 'Hypothetical'
+        note: 'Expected efficacy (not prescribed due to contraindication)'
       },
       annualCost: 540
     },
     benefits: [
-      'Most effective for hot flashes (hypothetical)',
-      'Best quality of life improvement (hypothetical)',
-      'Comprehensive symptom relief (hypothetical)'
+      'Most effective for hot flashes (in low-risk patients)',
+      'Best quality of life improvement (in low-risk patients)',
+      'Comprehensive symptom relief (not applicable here due to cancer risk)'
     ],
     considerations: [
       'CONTRAINDICATED: High breast cancer risk',
-      '30% increase in 5-year BC risk',
-      'Strong family history (mother, sister)',
-      'Risk far exceeds benefit in this case'
+      '30% increase in 5-year BC risk (14.2% → 18.5%)',
+      'Strong family history makes HRT unsafe',
+      'Risk far exceeds benefit - alternative approach required'
     ]
   },
 
@@ -297,8 +297,8 @@ export const breastCancerScenarios = {
       },
       breastCancerRisk: {
         baseline: '14.2%',
-        month12: '13.8%',
-        changePercent: -3,
+        month12: '14.2%',
+        changePercent: 0,
         isStatic: false,
         note: 'Lifestyle modifications (exercise, weight)'
       },

@@ -308,7 +308,7 @@ export const breastCancerRiskModelingData = {
       glow: false,
       contraindicated: true,
       label: {
-        text: 'Standard HRT 🚫',
+        text: 'Standard HRT',
         position: { x: 500, y: 230 }
       }
     },
@@ -338,7 +338,7 @@ export const breastCancerRiskModelingData = {
       glow: true,
       recommended: true,
       label: {
-        text: 'Fezo + CBT-I ⭐',
+        text: 'Fezo + CBT-I',
         position: { x: 500, y: 330 }
       }
     }
