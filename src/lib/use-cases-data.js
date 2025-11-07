@@ -21,7 +21,7 @@ export const useCases = [
       gradient: 'from-cyan-500/10 to-blue-500/10'
     },
     available: true,
-    route: '/demo/cardiovascular'
+    route: '/cardiovascular'
   },
   {
     id: 'breast-cancer-hot-flashes',
@@ -45,6 +45,6 @@ export const useCases = [
       gradient: 'from-pink-500/10 to-purple-500/10'
     },
     available: true,
-    route: '/demo/breast-cancer'
+    route: '/breast-cancer'
   }
 ];

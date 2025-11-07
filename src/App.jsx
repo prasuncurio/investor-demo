@@ -11,10 +11,10 @@ function App() {
         <Route path="/" element={<UseCaseSelector />} />
 
         {/* Cardiovascular demo */}
-        <Route path="/demo/cardiovascular" element={<CardiovascularDemo />} />
+        <Route path="/cardiovascular" element={<CardiovascularDemo />} />
 
         {/* Breast cancer demo */}
-        <Route path="/demo/breast-cancer" element={<BreastCancerDemo />} />
+        <Route path="/breast-cancer" element={<BreastCancerDemo />} />
 
         {/* Catch-all redirect */}
         <Route path="*" element={<Navigate to="/" replace />} />
