@@ -1,0 +1,467 @@
+/**
+ * Epic Shell Styles
+ * Epic-specific CSS styles for header, tabs, sidebar, and shell layout
+ * Based on Epic EHR Hyperspace interface design
+ */
+
+/* ============================================
+   EPIC SHELL LAYOUT
+   ============================================ */
+
+.epic-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.epic-shell-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.epic-shell-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.epic-shell-content {
+  flex: 1;
+  overflow: auto;
+  background: white;
+}
+
+/* ============================================
+   EPIC HEADER
+   ============================================ */
+
+.epic-header {
+  height: 40px;
+  background: linear-gradient(180deg, #0077C8 0%, #005A9C 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+  font-size: 13px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.epic-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 12px;
+}
+
+.epic-logo {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FF6B35;
+  letter-spacing: -0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.epic-logo:hover {
+  filter: brightness(1.1);
+}
+
+.epic-logo-dropdown {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.epic-header-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.epic-header-nav {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  align-items: center;
+}
+
+.epic-header-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.epic-header-nav-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.epic-header-nav-item:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.epic-header-nav-item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 1px;
+}
+
+.epic-header-nav-item .nav-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.epic-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.epic-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+}
+
+.epic-header-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.epic-header-icon:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.epic-header-user {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+  font-weight: 600;
+}
+
+.epic-header-user:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.epic-header-user-dropdown {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.epiccare-branding {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  padding: 0 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   EPIC TABS
+   ============================================ */
+
+.epic-tabs {
+  display: flex;
+  height: 32px;
+  background: #e8e8e8;
+  border-bottom: 1px solid #c0c0c0;
+  padding: 0 12px;
+  gap: 2px;
+  align-items: flex-end;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.epic-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.epic-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.epic-tabs::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.epic-tab {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px;
+  height: 28px;
+  background: #d0d0d0;
+  border: 1px solid #a0a0a0;
+  border-bottom: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.epic-tab:hover {
+  background: #dadada;
+}
+
+.epic-tab.active {
+  background: white;
+  color: #000;
+  font-weight: 600;
+  border-color: #808080;
+  height: 31px;
+  margin-bottom: -1px;
+}
+
+.epic-tab .tab-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ============================================
+   EPIC SIDEBAR
+   ============================================ */
+
+.epic-sidebar {
+  width: 280px;
+  background: #f0f4f8;
+  border-right: 1px solid #d0d0d0;
+  overflow-y: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.epic-sidebar-section {
+  padding: 12px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.epic-sidebar-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.epic-sidebar-patient {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.epic-sidebar-patient-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.epic-sidebar-patient-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.epic-sidebar-patient-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.epic-sidebar-patient-id {
+  font-size: 11px;
+  color: #666;
+  font-family: 'Courier New', monospace;
+  line-height: 1.3;
+}
+
+.epic-sidebar-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  font-size: 12px;
+  gap: 12px;
+}
+
+.epic-sidebar-field-label {
+  color: #666;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.epic-sidebar-field-value {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+
+.epic-sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.epic-sidebar-list-item {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.1s ease;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.epic-sidebar-list-item:hover {
+  background: rgba(0, 119, 200, 0.1);
+}
+
+.epic-sidebar-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #856404;
+  margin-bottom: 8px;
+}
+
+.epic-sidebar-alert-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.epic-sidebar-alert-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+/* Empty state */
+.epic-sidebar-empty {
+  padding: 24px 12px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .epic-header-nav-item span:not(.nav-icon) {
+    display: none;
+  }
+
+  .epic-sidebar {
+    width: 60px;
+  }
+
+  .epic-sidebar-patient-info,
+  .epic-sidebar-field-label,
+  .epic-sidebar-field-value,
+  .epic-sidebar-section-title,
+  .epic-sidebar-alert-text {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .epic-header {
+    padding: 0 12px;
+  }
+
+  .epic-header-nav {
+    gap: 0;
+  }
+
+  .epic-header-nav-item {
+    padding: 4px 6px;
+  }
+
+  .epiccare-branding {
+    display: none;
+  }
+
+  .epic-sidebar {
+    display: none;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.epic-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

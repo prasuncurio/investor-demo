@@ -487,3 +487,28 @@ export const binaryDecisionStatusMessagesData = [
     description: 'Validating against clinical guidelines'
   }
 ];
+
+// ============================================
+// HEAD-TO-HEAD COMPARISON QUERY TYPE DATA
+// ============================================
+
+export const headToHeadStatusMessagesData = [
+  {
+    id: 1,
+    phase: 1,
+    icon: 'git-branch',
+    text: 'Dual Pathway Simulation',
+    completedText: 'Dual Pathways Complete',
+    activeText: 'Running parallel simulations...',
+    description: 'Modeling effects of both treatments simultaneously'
+  },
+  {
+    id: 2,
+    phase: 2,
+    icon: 'bar-chart-3',
+    text: 'Comparative Analysis',
+    completedText: 'Comparative Analysis Complete',
+    activeText: 'Scoring tradeoffs...',
+    description: 'Analyzing: Efficacy, Safety, QoL, Cost, Multi-system benefits'
+  }
+];

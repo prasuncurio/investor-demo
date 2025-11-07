@@ -10,13 +10,16 @@ import Phase2PathwayMechanism from '@/components/animation/Phase2PathwayMechanis
 import Phase3CohortMechanism from '@/components/animation/Phase3CohortMechanism';
 import Phase1RiskBenefitBinary from '@/components/animation/Phase1RiskBenefitBinary';
 import Phase2GuidelinesCheck from '@/components/animation/Phase2GuidelinesCheck';
+import Phase1DualPathway from '@/components/animation/Phase1DualPathway';
+import Phase2ComparativeScoring from '@/components/animation/Phase2ComparativeScoring';
 import ProgressBar from '@/components/analysis/ProgressBar';
 import StatusMessage from '@/components/analysis/StatusMessage';
 import {
   statusMessagesData,
   breastCancerStatusMessagesData,
   mechanismStatusMessagesData,
-  binaryDecisionStatusMessagesData
+  binaryDecisionStatusMessagesData,
+  headToHeadStatusMessagesData
 } from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 import { QUERY_TYPES } from '@/lib/query-classifier';
@@ -54,6 +57,8 @@ export default function AnalysisAnimation({
     ? mechanismStatusMessagesData
     : queryType === QUERY_TYPES.BINARY_DECISION
     ? binaryDecisionStatusMessagesData
+    : queryType === QUERY_TYPES.HEAD_TO_HEAD
+    ? headToHeadStatusMessagesData
     : useCase === 'breast-cancer'
     ? breastCancerStatusMessagesData
     : statusMessagesData;
@@ -66,13 +71,16 @@ export default function AnalysisAnimation({
 
   // Phase transitions
   useEffect(() => {
-    // Binary decision has only 2 phases, so we adjust timing accordingly
+    // Binary decision and head-to-head have only 2 phases
     const isBinaryDecision = queryType === QUERY_TYPES.BINARY_DECISION;
-    const phase1Duration = 1500; // 1.5 seconds for binary decision
-    const phase2Duration = 1500; // 1.5 seconds for binary decision
-    const binaryTotalDuration = 3000; // 3 seconds total
+    const isHeadToHead = queryType === QUERY_TYPES.HEAD_TO_HEAD;
 
-    const timers = isBinaryDecision ? [
+    // Binary: 1.5s + 1.5s = 3s total
+    // Head-to-head: 2s + 2s = 4s total
+    const phase1Duration = isBinaryDecision ? 1500 : isHeadToHead ? 2000 : ANIMATION_CONFIG.PHASE_1_DURATION;
+    const totalDuration = isBinaryDecision ? 3000 : isHeadToHead ? 4000 : actualDuration;
+
+    const timers = (isBinaryDecision || isHeadToHead) ? [
       setTimeout(() => {
         setCurrentPhase(2);
         setCompletedPhases([1]);
@@ -83,7 +91,7 @@ export default function AnalysisAnimation({
         setTimeout(() => {
           onComplete();
         }, 300);
-      }, binaryTotalDuration)
+      }, totalDuration)
     ] : [
       setTimeout(() => {
         setCurrentPhase(2);
@@ -218,6 +226,11 @@ export default function AnalysisAnimation({
                   <>
                     {currentPhase === 1 && <Phase1RiskBenefitBinary key="phase1-binary" />}
                     {currentPhase === 2 && <Phase2GuidelinesCheck key="phase2-binary" />}
+                  </>
+                ) : queryType === QUERY_TYPES.HEAD_TO_HEAD ? (
+                  <>
+                    {currentPhase === 1 && <Phase1DualPathway key="phase1-head-to-head" />}
+                    {currentPhase === 2 && <Phase2ComparativeScoring key="phase2-head-to-head" />}
                   </>
                 ) : (
                   <>
