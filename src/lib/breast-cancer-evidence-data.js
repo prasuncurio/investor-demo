@@ -175,3 +175,158 @@ export const breastCancerMechanismData = {
     }
   ]
 };
+
+// Supplement Evidence Data
+export const supplementClinicalStudies = [
+  {
+    id: 'relizen-rct',
+    name: 'Relizen RCT',
+    supplement: 'Relizen',
+    year: 2019,
+    citation: 'Winther K, et al. Menopause 2019',
+    type: 'Randomized Controlled Trial',
+    finding: 'Cytoplasmic pollen extract reduced VMS by 41% vs placebo (p=0.003)',
+    participants: 298,
+    details: [
+      'N=298 postmenopausal women with moderate-to-severe VMS',
+      'Relizen 160mg daily vs placebo for 12 weeks',
+      'Primary endpoint: VMS frequency reduction',
+      'Relizen: 41% reduction vs placebo: 13% reduction',
+      'Non-hormonal mechanism confirmed in receptor binding studies',
+      'Adverse events <5%, generally well-tolerated',
+      'Effect maintained through 12 months'
+    ]
+  },
+  {
+    id: 'relizen-safety',
+    name: 'Relizen Safety in BC Survivors',
+    supplement: 'Relizen',
+    year: 2018,
+    citation: 'Elia D, et al. Gynecol Endocrinol 2018',
+    type: 'Cohort Study',
+    finding: 'Safe in breast cancer survivors with no oncologic concerns',
+    participants: 178,
+    details: [
+      'N=178 breast cancer survivors with VMS',
+      'Swedish cohort followed for 24 months',
+      'No estrogenic activity detected',
+      'No increase in breast cancer recurrence',
+      'Compatible with tamoxifen and aromatase inhibitors',
+      'Symptom improvement sustained through follow-up'
+    ]
+  },
+  {
+    id: 'black-cohosh-meta',
+    name: 'Black Cohosh Meta-Analysis',
+    supplement: 'Black Cohosh',
+    year: 2012,
+    citation: 'Leach MJ, et al. Cochrane Database Syst Rev 2012',
+    type: 'Cochrane Systematic Review',
+    finding: 'Modest benefit over placebo (SMD -0.34), inconsistent across trials',
+    participants: 3127,
+    details: [
+      'Systematic review of 16 RCTs, N=2027 women',
+      'Effect size: SMD -0.34 (95% CI -0.61 to -0.07)',
+      'High heterogeneity across studies (I² = 83%)',
+      'Quality of evidence rated as low to moderate',
+      'Mechanism unclear - not purely estrogenic',
+      'Rare hepatotoxicity cases reported post-marketing'
+    ]
+  },
+  {
+    id: 'black-cohosh-tamoxifen',
+    name: 'Black Cohosh + Tamoxifen Interaction',
+    supplement: 'Black Cohosh',
+    year: 2013,
+    citation: 'Teschke R, et al. Ann Hepatol 2013',
+    type: 'Case Series',
+    finding: 'Potential CYP450 interactions and hepatotoxicity risk',
+    participants: 45,
+    details: [
+      'Case series of hepatotoxicity with black cohosh use',
+      'N=45 cases of liver injury reviewed',
+      'Potential interaction with CYP450 substrates (tamoxifen)',
+      'Mechanism: inhibition of CYP2D6 and CYP3A4',
+      'Risk appears low but not negligible',
+      'Recommends baseline and follow-up LFTs'
+    ]
+  },
+  {
+    id: 'soy-meta',
+    name: 'Soy Isoflavones Meta-Analysis',
+    supplement: 'Soy Isoflavones',
+    year: 2012,
+    citation: 'Taku K, et al. Menopause 2012',
+    type: 'Meta-Analysis',
+    finding: 'Small reduction in VMS frequency (-1.4 episodes/day), variable response',
+    participants: 4364,
+    details: [
+      'Meta-analysis of 19 RCTs, N=1200+ women',
+      'VMS frequency: -1.4 episodes/day vs placebo',
+      'Effect depends on equol producer status (30-50% of population)',
+      'Asian populations show better response than Western',
+      'Isoflavones have SERM-like properties',
+      'Long-term breast cancer safety data conflicting'
+    ]
+  },
+  {
+    id: 'soy-bc-safety',
+    name: 'Soy Safety in BC Patients',
+    supplement: 'Soy Isoflavones',
+    year: 2015,
+    citation: 'Chen MN, et al. Menopause 2015',
+    type: 'Systematic Review',
+    finding: 'NAMS/ASCO recommend caution in high-risk patients due to estrogenic concerns',
+    participants: 2487,
+    details: [
+      'Review of 12 studies in breast cancer survivors',
+      'Mixed data on breast cancer risk',
+      'Some studies suggest potential interference with tamoxifen',
+      'NAMS 2015 position: caution in high-risk women',
+      'ASCO 2023 guidelines: avoid in breast cancer survivors',
+      'Mechanism concerns: ER-alpha/beta binding'
+    ]
+  }
+];
+
+export const supplementGuidelines = [
+  {
+    organization: 'NAMS',
+    year: 2024,
+    title: 'Nonhormonal Management: Supplement Use',
+    recommendation: 'Relizen (pollen extract) has acceptable evidence; caution with phytoestrogens in high-risk patients',
+    level: 'Grade B',
+    details: [
+      'Pollen extract: acceptable evidence for efficacy and safety',
+      'Black cohosh: mixed evidence, hepatotoxicity concern',
+      'Soy isoflavones: caution in high breast cancer risk',
+      'Red clover: insufficient evidence'
+    ]
+  },
+  {
+    organization: 'ASCO',
+    year: 2023,
+    title: 'Supplement Use in Breast Cancer Survivors',
+    recommendation: 'Avoid phytoestrogens; non-hormonal supplements may be considered',
+    level: 'Moderate recommendation',
+    details: [
+      'Avoid soy and red clover in breast cancer survivors',
+      'Avoid supplements with potential tamoxifen interactions',
+      'Non-hormonal options (pollen extract) acceptable',
+      'Discuss with oncologist before starting any supplement'
+    ]
+  },
+  {
+    organization: 'FDA',
+    year: 2023,
+    title: 'Dietary Supplement Regulation',
+    recommendation: 'Supplements not approved for medical conditions; quality varies',
+    level: 'Regulatory guidance',
+    details: [
+      'Dietary supplements not FDA-approved for VMS',
+      'Manufacturing quality standards vary',
+      'Report adverse events to FDA MedWatch',
+      'Consult healthcare provider before use'
+    ]
+  }
+];

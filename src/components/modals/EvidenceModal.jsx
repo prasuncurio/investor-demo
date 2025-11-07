@@ -11,9 +11,12 @@ import EvidenceTabStudies from './EvidenceTabStudies';
 import EvidenceTabMechanism from './EvidenceTabMechanism';
 import EvidenceTabStudiesBreastCancer from './EvidenceTabStudiesBreastCancer';
 import EvidenceTabMechanismBreastCancer from './EvidenceTabMechanismBreastCancer';
+import EvidenceTabStudiesSupplement from './EvidenceTabStudiesSupplement';
+import { QUERY_TYPES } from '@/lib/query-classifier';
 
-export default function EvidenceModal({ isOpen, onClose, useCase = 'cardiovascular' }) {
+export default function EvidenceModal({ isOpen, onClose, useCase = 'cardiovascular', queryType = null }) {
   const isBreastCancer = useCase === 'breast-cancer';
+  const isSupplementAssessment = queryType === QUERY_TYPES.SUPPLEMENT_SAFETY_ASSESSMENT;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -22,45 +25,52 @@ export default function EvidenceModal({ isOpen, onClose, useCase = 'cardiovascul
           <DialogTitle className="text-2xl">Supporting Evidence</DialogTitle>
         </DialogHeader>
 
-        <Tabs defaultValue="studies" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="cohort" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              <span className="hidden sm:inline">Cohort Data</span>
-              <span className="sm:hidden">Cohort</span>
-            </TabsTrigger>
-            <TabsTrigger value="studies" className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              <span className="hidden sm:inline">Clinical Studies</span>
-              <span className="sm:hidden">Studies</span>
-            </TabsTrigger>
-            <TabsTrigger value="mechanism" className="flex items-center gap-2">
-              <Network className="w-4 h-4" />
-              <span className="hidden sm:inline">Mechanism</span>
-              <span className="sm:hidden">How it Works</span>
-            </TabsTrigger>
-          </TabsList>
+        {isSupplementAssessment ? (
+          // Supplement assessment only shows Clinical Studies tab
+          <div className="w-full mt-4">
+            <EvidenceTabStudiesSupplement />
+          </div>
+        ) : (
+          <Tabs defaultValue="studies" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="cohort" className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                <span className="hidden sm:inline">Cohort Data</span>
+                <span className="sm:hidden">Cohort</span>
+              </TabsTrigger>
+              <TabsTrigger value="studies" className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4" />
+                <span className="hidden sm:inline">Clinical Studies</span>
+                <span className="sm:hidden">Studies</span>
+              </TabsTrigger>
+              <TabsTrigger value="mechanism" className="flex items-center gap-2">
+                <Network className="w-4 h-4" />
+                <span className="hidden sm:inline">Mechanism</span>
+                <span className="sm:hidden">How it Works</span>
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="cohort" className="mt-6">
-            <EvidenceTabCohort useCase={useCase} />
-          </TabsContent>
+            <TabsContent value="cohort" className="mt-6">
+              <EvidenceTabCohort useCase={useCase} />
+            </TabsContent>
 
-          <TabsContent value="studies" className="mt-6">
-            {isBreastCancer ? (
-              <EvidenceTabStudiesBreastCancer />
-            ) : (
-              <EvidenceTabStudies useCase={useCase} />
-            )}
-          </TabsContent>
+            <TabsContent value="studies" className="mt-6">
+              {isBreastCancer ? (
+                <EvidenceTabStudiesBreastCancer />
+              ) : (
+                <EvidenceTabStudies useCase={useCase} />
+              )}
+            </TabsContent>
 
-          <TabsContent value="mechanism" className="mt-6">
-            {isBreastCancer ? (
-              <EvidenceTabMechanismBreastCancer />
-            ) : (
-              <EvidenceTabMechanism useCase={useCase} />
-            )}
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="mechanism" className="mt-6">
+              {isBreastCancer ? (
+                <EvidenceTabMechanismBreastCancer />
+              ) : (
+                <EvidenceTabMechanism useCase={useCase} />
+              )}
+            </TabsContent>
+          </Tabs>
+        )}
       </DialogContent>
     </Dialog>
   );

@@ -512,3 +512,37 @@ export const headToHeadStatusMessagesData = [
     description: 'Analyzing: Efficacy, Safety, QoL, Cost, Multi-system benefits'
   }
 ];
+
+// ============================================
+// SUPPLEMENT SAFETY ASSESSMENT QUERY TYPE DATA
+// ============================================
+
+export const supplementAssessmentStatusMessagesData = [
+  {
+    id: 1,
+    phase: 1,
+    icon: 'shield-check',
+    text: 'Safety Profile Assessment',
+    completedText: 'Safety Assessment Complete',
+    activeText: 'Evaluating oncologic safety...',
+    description: 'Screening for breast cancer risk, hormone content, drug interactions'
+  },
+  {
+    id: 2,
+    phase: 2,
+    icon: 'microscope',
+    text: 'Evidence Synthesis',
+    completedText: 'Evidence Synthesis Complete',
+    activeText: 'Analyzing trial data...',
+    description: 'Reviewing RCTs, meta-analyses, and observational studies'
+  },
+  {
+    id: 3,
+    phase: 3,
+    icon: 'target',
+    text: 'Personalized Matching',
+    completedText: 'Recommendation Ready',
+    activeText: 'Matching to patient profile...',
+    description: 'Considering symptom severity, risk factors, and preferences'
+  }
+];

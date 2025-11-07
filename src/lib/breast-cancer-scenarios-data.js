@@ -351,13 +351,15 @@ export const breastCancerFollowUpQueries = {
     'Why is Fezolinetant + CBT-I recommended?',
     'What makes HRT unsafe in this case?',
     'Show me the clinical evidence for Fezolinetant',
-    'How effective is CBT-I for hot flashes?'
+    'How effective is CBT-I for hot flashes?',
+    'Are there non-prescription supplements that could help?'
   ],
   afterRecommendation: [
     'Generate the clinical note',
     'What monitoring is needed for Fezolinetant?',
     'How do I refer for CBT-I?',
-    'Can we add vaginal estrogen to this plan?'
+    'Can we add vaginal estrogen to this plan?',
+    'What about non-prescription alternatives?'
   ]
 };
 

@@ -11,6 +11,7 @@ export const QUERY_TYPES = {
   COMPREHENSIVE: 'comprehensive',      // Query 2: "What's the best intervention?"
   BINARY_DECISION: 'binary',          // Query 3: "Should I prescribe a statin?"
   HEAD_TO_HEAD: 'head-to-head',       // Query 4: "Compare HRT vs statin"
+  SUPPLEMENT_SAFETY_ASSESSMENT: 'supplement_safety_assessment', // Breast Cancer: "Non-prescription supplements?"
   UNKNOWN: 'unknown'                   // Fallback for unrecognized queries
 };
 
@@ -117,6 +118,34 @@ const QUERY_PATTERNS = {
     ],
     requiresTerms: ['hrt', 'statin'], // Must mention both
     description: 'Head-to-head queries seek direct comparison between two specific treatments'
+  },
+
+  [QUERY_TYPES.SUPPLEMENT_SAFETY_ASSESSMENT]: {
+    keywords: [
+      'supplement',
+      'supplements',
+      'non-prescription',
+      'over-the-counter',
+      'otc',
+      'natural',
+      'herbal',
+      'alternative',
+      'without hormones',
+      'non-hormonal'
+    ],
+    phrases: [
+      'non-prescription supplements',
+      'over-the-counter',
+      'without hormones',
+      'natural alternatives',
+      'herbal remedies',
+      'supplement that could help',
+      'supplements that could',
+      'otc options',
+      'non-prescription alternatives',
+      'alternatives to'
+    ],
+    description: 'Supplement safety queries seek non-prescription treatment options'
   }
 };
 
@@ -298,6 +327,7 @@ export function getQueryTypeName(queryType) {
     [QUERY_TYPES.COMPREHENSIVE]: 'Comprehensive Comparison',
     [QUERY_TYPES.BINARY_DECISION]: 'Binary Decision Support',
     [QUERY_TYPES.HEAD_TO_HEAD]: 'Head-to-Head Comparison',
+    [QUERY_TYPES.SUPPLEMENT_SAFETY_ASSESSMENT]: 'Supplement Safety Assessment',
     [QUERY_TYPES.UNKNOWN]: 'Unknown Query Type'
   };
 

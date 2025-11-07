@@ -12,6 +12,9 @@ import Phase1RiskBenefitBinary from '@/components/animation/Phase1RiskBenefitBin
 import Phase2GuidelinesCheck from '@/components/animation/Phase2GuidelinesCheck';
 import Phase1DualPathway from '@/components/animation/Phase1DualPathway';
 import Phase2ComparativeScoring from '@/components/animation/Phase2ComparativeScoring';
+import Phase1SupplementSafety from '@/components/animation/Phase1SupplementSafety';
+import Phase2SupplementEvidence from '@/components/animation/Phase2SupplementEvidence';
+import Phase3SupplementPersonalization from '@/components/animation/Phase3SupplementPersonalization';
 import ProgressBar from '@/components/analysis/ProgressBar';
 import StatusMessage from '@/components/analysis/StatusMessage';
 import {
@@ -19,7 +22,8 @@ import {
   breastCancerStatusMessagesData,
   mechanismStatusMessagesData,
   binaryDecisionStatusMessagesData,
-  headToHeadStatusMessagesData
+  headToHeadStatusMessagesData,
+  supplementAssessmentStatusMessagesData
 } from '@/lib/animation-data';
 import { ANIMATION_CONFIG } from '@/lib/animation-config';
 import { QUERY_TYPES } from '@/lib/query-classifier';
@@ -59,6 +63,8 @@ export default function AnalysisAnimation({
     ? binaryDecisionStatusMessagesData
     : queryType === QUERY_TYPES.HEAD_TO_HEAD
     ? headToHeadStatusMessagesData
+    : queryType === QUERY_TYPES.SUPPLEMENT_SAFETY_ASSESSMENT
+    ? supplementAssessmentStatusMessagesData
     : useCase === 'breast-cancer'
     ? breastCancerStatusMessagesData
     : statusMessagesData;
@@ -72,13 +78,23 @@ export default function AnalysisAnimation({
   // Phase transitions
   useEffect(() => {
     // Binary decision and head-to-head have only 2 phases
+    // Supplement assessment has 3 phases
     const isBinaryDecision = queryType === QUERY_TYPES.BINARY_DECISION;
     const isHeadToHead = queryType === QUERY_TYPES.HEAD_TO_HEAD;
+    const isSupplementAssessment = queryType === QUERY_TYPES.SUPPLEMENT_SAFETY_ASSESSMENT;
 
     // Binary: 1.5s + 1.5s = 3s total
     // Head-to-head: 2s + 2s = 4s total
-    const phase1Duration = isBinaryDecision ? 1500 : isHeadToHead ? 2000 : ANIMATION_CONFIG.PHASE_1_DURATION;
-    const totalDuration = isBinaryDecision ? 3000 : isHeadToHead ? 4000 : actualDuration;
+    // Supplement: 1.5s + 1.5s + 1s = 4s total
+    const phase1Duration = isBinaryDecision ? 1500
+      : isHeadToHead ? 2000
+      : isSupplementAssessment ? 1500
+      : ANIMATION_CONFIG.PHASE_1_DURATION;
+
+    const totalDuration = isBinaryDecision ? 3000
+      : isHeadToHead ? 4000
+      : isSupplementAssessment ? 4000
+      : actualDuration;
 
     const timers = (isBinaryDecision || isHeadToHead) ? [
       setTimeout(() => {
@@ -92,6 +108,26 @@ export default function AnalysisAnimation({
           onComplete();
         }, 300);
       }, totalDuration)
+    ] : isSupplementAssessment ? [
+      // Phase 1: Safety Assessment (1.5s)
+      setTimeout(() => {
+        setCurrentPhase(2);
+        setCompletedPhases([1]);
+      }, 1500),
+
+      // Phase 2: Evidence Synthesis (1.5s)
+      setTimeout(() => {
+        setCurrentPhase(3);
+        setCompletedPhases([1, 2]);
+      }, 3000),
+
+      // Phase 3: Personalization (1s) and complete
+      setTimeout(() => {
+        setCompletedPhases([1, 2, 3]);
+        setTimeout(() => {
+          onComplete();
+        }, 300);
+      }, 4000)
     ] : [
       setTimeout(() => {
         setCurrentPhase(2);
@@ -231,6 +267,12 @@ export default function AnalysisAnimation({
                   <>
                     {currentPhase === 1 && <Phase1DualPathway key="phase1-head-to-head" />}
                     {currentPhase === 2 && <Phase2ComparativeScoring key="phase2-head-to-head" />}
+                  </>
+                ) : queryType === QUERY_TYPES.SUPPLEMENT_SAFETY_ASSESSMENT ? (
+                  <>
+                    {currentPhase === 1 && <Phase1SupplementSafety key="phase1-supplement" />}
+                    {currentPhase === 2 && <Phase2SupplementEvidence key="phase2-supplement" />}
+                    {currentPhase === 3 && <Phase3SupplementPersonalization key="phase3-supplement" />}
                   </>
                 ) : (
                   <>
